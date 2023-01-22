@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
 
     private PlayerStatistics playerStats;
 
-    public GameObject wetnessTextObject;
-    private Text wetnessText;
     public GameObject pollenTextObject;
     private Text pollenText;
 
@@ -35,10 +33,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         playerStats = playerObject.GetComponent<PlayerStatistics>();
-        wetnessText = wetnessTextObject.GetComponent<Text>();
         pollenText = pollenTextObject.GetComponent<Text>();
         sm = spawners.GetComponent<SpawnerManager>();
-        UpdateWetness();
         UpdatePollen();
     }
 
@@ -105,10 +101,6 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// GUI UPDATES
     /// </summary>
-    public void UpdateWetness()
-    {
-        wetnessText.text = playerStats.wetness.ToString() + "/5";
-    }
     public void UpdatePollen()
     {
         pollenText.text = playerStats.pollen.ToString();

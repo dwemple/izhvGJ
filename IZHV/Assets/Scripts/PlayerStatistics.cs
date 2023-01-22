@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PlayerStatus
 {
@@ -14,15 +15,17 @@ public class PlayerStatistics : MonoBehaviour
 {
     public GameObject gameManageObject;
     private GameManager gm;
-
+    public GameObject wetBar;
+    public GameObject wetProgressBar;
+    private Image wetProgress;
     private Animator animator;
+
+    public float maxWetness;
 
     public int health;
     public int pollen;
-    public int wetness;
+    public float wetness;
     public PlayerStatus playerStatus;
-    private float wetnessTimer = 0f;
-    public float wetnessDespawn;
 
     private Vector2 respawnPos;
     public GameObject animatorObj;
@@ -32,6 +35,7 @@ public class PlayerStatistics : MonoBehaviour
         gm = gameManageObject.GetComponent<GameManager>();
         animator = animatorObj.GetComponent<Animator>();
         respawnPos = new Vector2(2.36f, -3.23f);
+        wetProgress = wetProgressBar.GetComponent<Image>();
     }
     private void Start()
     {
@@ -39,13 +43,21 @@ public class PlayerStatistics : MonoBehaviour
     }
     private void Update()
     {
-        if (wetnessTimer >= wetnessDespawn && wetness > 0)
+        if (wetness > 0)
         {
-            wetness--;
-            gm.UpdateWetness();
-            wetnessTimer = 0f;
+            wetness -= Time.deltaTime * 0.5f;
         }
-        wetnessTimer += Time.deltaTime;
+    }
+    private void FixedUpdate()
+    {
+        UpdateWetnessBar();
+        UpdateWetBarPosition();
+    }
+    private void UpdateWetBarPosition()
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+        wetBar.transform.position = screenPos - new Vector3(0,75,0);
     }
     public void RemoveWetnessWhenInBubble()
     {
@@ -57,14 +69,12 @@ public class PlayerStatistics : MonoBehaviour
             return;
         }
         wetness--;
-        gm.UpdateWetness();
     }
     public void AddWetness()
     {
         StartCoroutine(WaitForWaterAnimation());
         wetness++;
-        gm.UpdateWetness();
-        if (wetness >= 5)
+        if (wetness >= maxWetness)
         {
             playerStatus = PlayerStatus.BUBBLED;
             gm.ShowBubble();
@@ -90,7 +100,7 @@ public class PlayerStatistics : MonoBehaviour
         animator.SetTrigger("Hit");
         if (playerStatus == PlayerStatus.BUBBLED) gm.HideBubble();
         wetness = 0;
-        gm.UpdateWetness();
+        wetBar.SetActive(false);
         RemoveHealth();
 
         playerStatus = PlayerStatus.IMMUNE;
@@ -105,6 +115,7 @@ public class PlayerStatistics : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
         animator.ResetTrigger("Hit");
         playerStatus = PlayerStatus.ALIVE;
+        wetBar.SetActive(true);
         yield return new WaitForSeconds(1f);
         gm.ActivateSpawners();
     }
@@ -113,5 +124,10 @@ public class PlayerStatistics : MonoBehaviour
         animator.SetTrigger("Water");
         yield return new WaitForSeconds(0.5f);
         animator.ResetTrigger("Water");
+    }
+
+    private void UpdateWetnessBar()
+    {
+        if(wetness < 5 && wetness > 0) wetProgress.fillAmount = wetness / maxWetness;
     }
 }

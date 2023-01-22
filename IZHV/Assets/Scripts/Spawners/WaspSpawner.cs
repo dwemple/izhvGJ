@@ -26,7 +26,6 @@ public class WaspSpawner : MonoBehaviour
     }
     private void Start()
     {
-        SpawnWasp();
         RerollSpawnTimer();
     }
     private void Update()
