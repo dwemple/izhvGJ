@@ -26,7 +26,6 @@ public class WindLine : MonoBehaviour
         if (!isBlowing && timer > 1.5f)
         {
             ChangeColor();
-            arrow.SetActive(false);
             StartBlowing();
         }
         if (timer > 6f) Destroy(gameObject);
@@ -43,6 +42,7 @@ public class WindLine : MonoBehaviour
     private void ChangeColor()
     {
         sprite.color = new Color(255, 255, 255, 1f);
+        arrow.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, .2f);
     }
     private void InitializeWarning()
     {

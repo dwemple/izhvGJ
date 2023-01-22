@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject spawners;
     private SpawnerManager sm;
 
-    private PlayerStatistics playerStats;
+    public PlayerStatistics playerStats;
 
     public GameObject pollenTextObject;
     private Text pollenText;
@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
     {
         timer = 0;
         playerObject.SetActive(true);
-        StartCoroutine(WaitForSpawners());
     }
     private void Update()
     {
@@ -67,12 +66,14 @@ public class GameManager : MonoBehaviour
     }
     public void HideSpawners()
     {
+        sm.DisableAllSpawners();
         sm.RemoveAllObject();
         spawners.SetActive(false);
     }
     public void ActivateSpawners()
     {
         spawners.SetActive(true);
+        sm.ActivateAllSpawners();
     }
     public void ShowBubble()
     {
@@ -109,14 +110,5 @@ public class GameManager : MonoBehaviour
     {
         if (livesShowing < count) lives[livesShowing++].SetActive(true);
         else lives[--livesShowing].SetActive(false);
-    }
-    /// <summary>
-    /// Coroutine
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator WaitForSpawners()
-    {
-        yield return new WaitForSeconds(3f);
-        ActivateSpawners();
     }
 }

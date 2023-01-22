@@ -39,7 +39,7 @@ public class PlayerStatistics : MonoBehaviour
     }
     private void Start()
     {
-        StartCoroutine(WaitForAnimationFinish());
+        StartCoroutine(WaitForAnimationFinishStart());
     }
     private void Update()
     {
@@ -103,19 +103,37 @@ public class PlayerStatistics : MonoBehaviour
         wetBar.SetActive(false);
         RemoveHealth();
 
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
         playerStatus = PlayerStatus.IMMUNE;
         gm.HideSpawners();
         StartCoroutine(WaitForAnimationFinish());
     }
 
+    private IEnumerator WaitForAnimationFinishStart()
+    {
+        yield return new WaitForSeconds(0.3f);
+        transform.position = respawnPos;
+        yield return new WaitForSeconds(1.2f);
+        animator.ResetTrigger("Hit");
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        playerStatus = PlayerStatus.ALIVE;
+        wetBar.SetActive(true);
+        UpdateWetnessBar();
+        yield return new WaitForSeconds(1f);
+        gm.spawners.SetActive(true);
+
+    }
     private IEnumerator WaitForAnimationFinish()
     {
         yield return new WaitForSeconds(0.3f);
         transform.position = respawnPos;
         yield return new WaitForSeconds(1.2f);
         animator.ResetTrigger("Hit");
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         playerStatus = PlayerStatus.ALIVE;
         wetBar.SetActive(true);
+        UpdateWetnessBar();
         yield return new WaitForSeconds(1f);
         gm.ActivateSpawners();
     }
@@ -125,7 +143,6 @@ public class PlayerStatistics : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         animator.ResetTrigger("Water");
     }
-
     private void UpdateWetnessBar()
     {
         if(wetness < 5 && wetness > 0) wetProgress.fillAmount = wetness / maxWetness;

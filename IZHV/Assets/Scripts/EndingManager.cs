@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndingManager : MonoBehaviour
 {
@@ -10,8 +11,7 @@ public class EndingManager : MonoBehaviour
     public GameObject fog;
     public GameObject congratzMsg;
 
-    private GameObject player;
-
+    public GameObject pollenTextObj;
     public void Awake()
     {
         gm = GetComponent<GameManager>();
@@ -29,8 +29,13 @@ public class EndingManager : MonoBehaviour
     private IEnumerator WaitForBeehiveAndPopupCongratulationMessage()
     {
         yield return new WaitForSeconds(5f);
+        UpdatePollenOnEndingScreen();
         congratzMsg.SetActive(true);
         gm.playerObject.SetActive(false);
+    }
+    private void UpdatePollenOnEndingScreen()
+    {
+        pollenTextObj.GetComponent<Text>().text = gm.playerStats.pollen.ToString();
     }
     private IEnumerator WaitForFogToHideAndSpawnBeehive()
     {

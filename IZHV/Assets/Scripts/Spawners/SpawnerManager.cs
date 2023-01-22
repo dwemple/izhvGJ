@@ -58,6 +58,20 @@ public class SpawnerManager : MonoBehaviour
         rain.canSpawn = set;
         rainActive = set;
     }
+    public void DisableAllSpawners()
+    {
+        DeActivateRainSpawner(false);
+        DeActivatePollenSpawner(false);
+        DeActivateWindSpawner(false);
+        DeActivateWaspSpawner(false);
+    }
+    public void ActivateAllSpawners()
+    {
+        DeActivateRainSpawner(true);
+        DeActivatePollenSpawner(true);
+        DeActivateWindSpawner(true);
+        DeActivateWaspSpawner(true);
+    }
     public void RemoveAllObject()
     {
         wasp.RemoveDuringDeath();

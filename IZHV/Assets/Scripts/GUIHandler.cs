@@ -13,6 +13,8 @@ public class GUIHandler : MonoBehaviour
     public GameObject restartButton;
     public GameObject pauseButton;
     public GameObject unpauseButton;
+    public GameObject finishBackToMenu;
+    public GameObject finishRestart;
 
     private void Awake()
     {
@@ -21,6 +23,8 @@ public class GUIHandler : MonoBehaviour
         restartButton.GetComponent<Button>().onClick.AddListener(RestartGame);
         pauseButton.GetComponent<Button>().onClick.AddListener(PauseGame);
         unpauseButton.GetComponent<Button>().onClick.AddListener(UnpauseGame);
+        finishBackToMenu.GetComponent<Button>().onClick.AddListener(GoToMainMenu);
+        finishRestart.GetComponent<Button>().onClick.AddListener(RestartGame);
     }
     private void RestartGame()
     {
