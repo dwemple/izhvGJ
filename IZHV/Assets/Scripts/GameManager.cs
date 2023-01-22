@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private Text pollenText;
 
     public List<GameObject> lives;
-    private int livesShowing = 5;
+    private int livesShowing = 3;
     private float timer;
 
     public float startPollen;
@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        playerStats = playerObject.GetComponent<PlayerStatistics>();
         pollenText = pollenTextObject.GetComponent<Text>();
         sm = spawners.GetComponent<SpawnerManager>();
+        playerStats = playerObject.GetComponent<PlayerStatistics>();
         UpdatePollen();
     }
 
@@ -83,7 +83,6 @@ public class GameManager : MonoBehaviour
     {
         bubbleObject.SetActive(false);
     }
-
     public void WonGame()
     {
         updateTimer = false;
@@ -91,7 +90,6 @@ public class GameManager : MonoBehaviour
         HideSpawners();
         GetComponent<EndingManager>().HideFog();
     }
-
     public void LostGame()
     {
         Time.timeScale = 0;

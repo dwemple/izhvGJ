@@ -88,7 +88,7 @@ public class PlayerStatistics : MonoBehaviour
     }
     private void AddHealth()
     {
-        if (health < 5) gm.UpdateHealth(++health);
+        if (health < 3) gm.UpdateHealth(++health);
     }
     private void RemoveHealth()
     {
