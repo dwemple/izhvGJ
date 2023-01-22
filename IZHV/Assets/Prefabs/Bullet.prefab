@@ -52,7 +52,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.88}
+    oldSize: {x: 0.82, y: 1.31}
     newSize: {x: 0.5, y: 0.88}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -60,9 +60,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.25, y: 0.45}
-      - {x: -0.25, y: 0.45}
-      - {x: 0, y: -0.45}
+    - - {x: 0.23389545, y: 0.4298693}
+      - {x: -0.25402611, y: 0.4298693}
+      - {x: -0.0080522755, y: -0.44597387}
 --- !u!50 &1704845353138350500
 Rigidbody2D:
   serializedVersion: 4
@@ -128,7 +128,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 21300000, guid: 7138650afcdc71d488d5b4b202c45a32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 1
+  m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.5, y: 0.88}
   m_AdaptiveModeThreshold: 0.5
@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1709da45453c0a9409df556d37e307e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentRef: {fileID: 0}

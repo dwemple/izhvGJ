@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     public float startWind;
     public float startWasp;
 
+    private bool updateTimer = true;
+
     public float endTimer;
 
     private void Awake()
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        timer += Time.deltaTime;
+        if (updateTimer) timer += Time.deltaTime;
         if (!sm.pollenActive && timer > startPollen)
         {
             sm.DeActivatePollenSpawner(true);
@@ -87,10 +89,10 @@ public class GameManager : MonoBehaviour
 
     public void WonGame()
     {
-        Debug.Log("U won :D");
-        Time.timeScale = 0f;
+        updateTimer = false;
+        timer = 0;
         HideSpawners();
-        endScreen.SetActive(true);
+        GetComponent<EndingManager>().HideFog();
     }
 
     public void LostGame()

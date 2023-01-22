@@ -41,7 +41,7 @@ public class RainSpawner : MonoBehaviour
     {
         var raindrop = Instantiate(raindropPrefab, transform);
         raindrop.transform.localPosition = Vector3.right * Random.Range(3.0f, 11.8f);
-        raindrop.transform.localScale = Vector3.one * Random.Range(1,3);
+        raindrop.transform.localScale = Vector3.one * Random.Range(0.5f,1f);
         raindrops.Add(raindrop);
     }
     public void PlayerHitBridge(GameObject raindrop)

@@ -14,6 +14,7 @@ public class Wasp : MonoBehaviour
     public int bulletSpeed;
     private GameObject player;
     public float waspStart;
+    private bool playingIdleAni = false;
 
     public GameObject bulletPrefab;
     void Start()
@@ -26,6 +27,11 @@ public class Wasp : MonoBehaviour
     void Update()
     {
         IterateTimers();
+        if (!playingIdleAni && timer > 1f)
+        {
+            animator.Play("Idle");
+            playingIdleAni = true;
+        }
         if (!isFiring && timer > waspStart) isFiring = true;
         if (timer > waspDespawn)
         {

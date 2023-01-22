@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject collector;
+    public GameObject hitBox;
     private PlayerStatistics playerStatistics;
 
     private Rigidbody2D rb;
@@ -30,7 +31,11 @@ public class PlayerMovement : MonoBehaviour
         if (slowAction.IsPressed()) currentMoveSpeed = moveSpeed - 2;
         else currentMoveSpeed = moveSpeed;
 
-        if (slowAction.WasReleasedThisFrame()) collector.SetActive(false);
+        if (slowAction.WasReleasedThisFrame())
+        {
+            collector.SetActive(false);
+            hitBox.SetActive(false);
+        }
     }
     private void FixedUpdate()
     {
@@ -39,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void OnSlow()
     {
+        hitBox.SetActive(true);
         collector.SetActive(true);
     }
     public void OnBreak()

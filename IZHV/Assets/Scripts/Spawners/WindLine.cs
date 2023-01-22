@@ -42,13 +42,13 @@ public class WindLine : MonoBehaviour
     }
     private void ChangeColor()
     {
-        sprite.color = new Color(255, 255, 255, 0.3f);
+        sprite.color = new Color(255, 255, 255, 1f);
     }
     private void InitializeWarning()
     {
         transform.rotation = Quaternion.Euler(direction ? 180 : 0, 0, 0);
         arrow.transform.position -= new Vector3(0, 0, direction ? 2 : 0);
-        sprite.color = new Color(255,0,0,0.5f);
+        sprite.color = new Color(255,0,0,1f);
         arrow.SetActive(true);
     }
 
